@@ -3,3 +3,6 @@ build/
 daemon/
 .env
 npm-debug.log*
+app/src-tauri/resources/
+app/src-tauri/target/
+app/src-tauri/gen/

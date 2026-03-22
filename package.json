@@ -2,13 +2,20 @@
   "name": "xiaoai-control-pc",
   "version": "0.1.0",
   "description": "Use XiaoAi + Mi Home + Bemfa MQTT to control a Windows PC.",
-  "main": "src/index.js",
+  "main": "service/src/index.js",
   "scripts": {
-    "build-service": "node scripts/build-service.js",
-    "start": "node src/index.js",
-    "install-service": "node scripts/install-service.js",
-    "uninstall-service": "node scripts/uninstall-service.js",
-    "service-status": "node scripts/service-status.js"
+    "build-service": "node service/scripts/build-service.js",
+    "prepare-help-page": "node app/scripts/generate-help-page.js",
+    "prepare-app-assets": "npm run prepare-help-page && npm run prepare-tauri-resources",
+    "prepare-tauri-resources": "node service/scripts/prepare-tauri-resources.js",
+    "start": "node service/src/index.js",
+    "install-service": "node service/scripts/install-service.js",
+    "tauri": "tauri",
+    "tauri:build": "tauri build --config app/src-tauri/tauri.conf.json --no-bundle",
+    "tauri:dev": "tauri dev --config app/src-tauri/tauri.conf.json",
+    "tauri:portable": "npm run tauri:build && node app/scripts/package-portable.js",
+    "uninstall-service": "node service/scripts/uninstall-service.js",
+    "service-status": "node service/scripts/service-status.js"
   },
   "keywords": [
     "xiaoai",
@@ -24,6 +31,8 @@
     "node-windows": "^1.0.0-beta.8"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.38.3"
+    "@tauri-apps/cli": "^2",
+    "@vercel/ncc": "^0.38.3",
+    "marked": "^17.0.5"
   }
 }

@@ -8,7 +8,7 @@ const {
   SERVICE_NAME,
 } = require("../src/config/app-constants");
 
-const rootDir = path.resolve(__dirname, "..");
+const rootDir = path.resolve(__dirname, "..", "..");
 const rootEnvPath = path.join(rootDir, ".env");
 const installEnvPath = path.join(SERVICE_INSTALL_DIR, ".env");
 const bundledServicePath = path.join(BUILD_DIR, SERVICE_BUNDLE_FILENAME);
@@ -24,10 +24,14 @@ function ensureEnvFile() {
 }
 
 function buildServiceBundle() {
-  execFileSync(process.execPath, [path.join(rootDir, "scripts", "build-service.js")], {
-    cwd: rootDir,
-    stdio: "inherit",
-  });
+  execFileSync(
+    process.execPath,
+    [path.join(rootDir, "service", "scripts", "build-service.js")],
+    {
+      cwd: rootDir,
+      stdio: "inherit",
+    }
+  );
 }
 
 function publishRuntimeFiles() {

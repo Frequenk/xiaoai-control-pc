@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XiaoAi Control PC README</title>
+    <style>
+      :root {
+        --bg: #f6f3ed;
+        --surface: #ffffff;
+        --ink: #1f2623;
+        --muted: #64706a;
+        --line: rgba(31, 38, 35, 0.12);
+        --accent: #0d6a53;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI Variable", "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      .page {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 28px 24px 48px;
+      }
+      .markdown-body {
+        padding: 28px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        box-shadow: 0 16px 40px rgba(24, 31, 28, 0.08);
+        line-height: 1.75;
+      }
+      .markdown-body h1,
+      .markdown-body h2,
+      .markdown-body h3 {
+        line-height: 1.25;
+      }
+      .markdown-body a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .markdown-body a:hover {
+        text-decoration: underline;
+      }
+      .markdown-body code {
+        padding: 2px 6px;
+        border-radius: 6px;
+        background: rgba(13, 106, 83, 0.08);
+      }
+      .markdown-body pre {
+        overflow: auto;
+        padding: 16px;
+        border-radius: 16px;
+        background: #14201c;
+        color: #d4f3ea;
+      }
+      .markdown-body pre code {
+        padding: 0;
+        background: transparent;
+        color: inherit;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .markdown-body th,
+      .markdown-body td {
+        padding: 12px;
+        border: 1px solid var(--line);
+        vertical-align: top;
+      }
+      .markdown-body img {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <article class="markdown-body"><h1>xiaoai-control-pc</h1>
+<p>用小爱同学控制电脑关机，以及扩展更多自定义操作。</p>
+<h2>实现方式</h2>
+<h3>关机 / 其他操作</h3>
+<p><code>小爱同学（小米音箱或小米手机） -&gt; 小爱训练 -&gt; 米家中的巴法云设备 -&gt; 巴法云 MQTT -&gt; 本地程序（可注册为 Windows 服务） -&gt; 执行电脑操作</code></p>
+<h3>开机</h3>
+<p><code>小爱同学（小米音箱或小米手机） -&gt; 小爱训练 -&gt; 打开小米智能插座 -&gt; 电脑通电 -&gt; 主板来电自启</code></p>
+<h2>使用前准备</h2>
+<p>你需要准备：</p>
+<ol>
+<li>巴法云账号</li>
+<li>米家 App</li>
+<li>小米音箱 App 或小米手机</li>
+<li>一台 Windows 电脑</li>
+<li>如果要做开机，再准备一个小米智能插座</li>
+</ol>
+<h2>配置流程</h2>
+<h3>1. 在巴法云创建设备</h3>
+<p>推荐直接使用窗帘设备。</p>
+<p>对应关系如下：</p>
+<ul>
+<li>关闭窗帘 -&gt; <code>off</code> -&gt; 关机</li>
+<li>打开窗帘 -&gt; <code>on</code> -&gt; 重启</li>
+<li>暂停窗帘 -&gt; <code>pause</code> -&gt; 注销当前用户</li>
+</ul>
+<p>更多设备操作名和 key 的规则可以查看巴法云文档：</p>
+<p><a href="https://cloud.bemfa.com/docs/src/speaker_mi.html?utm_source=chatgpt.com">https://cloud.bemfa.com/docs/src/speaker_mi.html?utm_source=chatgpt.com</a></p>
+<p>如果你后面还想用 <code>on#10</code>、<code>on#20</code> 这类更多 key，需要自己拉代码并修改 <code>service/src/config/action-map.js</code>。</p>
+<p>创建完成后，记下：</p>
+<ul>
+<li>巴法云私钥</li>
+<li>Topic</li>
+</ul>
+<img src="./images/%E5%B7%B4%E6%B3%95%E4%BA%91-%E9%85%8D%E7%BD%AE%E9%A1%B5%E9%9D%A2.png" alt="巴法云配置页面" width="840" />
+
+<h3>2. 在米家绑定巴法云</h3>
+<table style="table-layout: fixed;">
+  <tr>
+    <td width="220" valign="top"><img src="./images/%E7%B1%B3%E5%AE%B6APP-%E6%88%91%E7%9A%84.jpg" alt="米家 App 我的页面" width="220" /></td>
+    <td width="220" valign="top"><img src="./images/%E7%B1%B3%E5%AE%B6APP-%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0-%E5%B7%B4%E6%B3%95%E4%BA%91.jpg" alt="米家 App 第三方平台" width="220" /></td>
+  </tr>
+  <tr>
+    <td width="220" valign="top">打开米家 App，进入“我的”页面</td>
+    <td width="220" valign="top">进入“连接第三方平台”，搜索并绑定巴法云，完成后同步刚创建的 MQTT 设备</td>
+  </tr>
+</table>
+
+<h3>3. 在小爱同学中配置训练指令</h3>
+<p>进入“小爱训练”有两种方式。</p>
+<p>小米手机进入：</p>
+<table style="table-layout: fixed;">
+  <tr>
+    <td width="220" valign="top"><img src="./images/%E6%89%8B%E6%9C%BA%E5%B0%8F%E7%88%B1-%E5%B0%8F%E7%88%B1%E8%AE%AD%E7%BB%83-%E5%85%A5%E5%8F%A3.jpg" alt="小爱训练入口" width="220" /></td>
+    <td width="220" valign="top"><img src="./images/%E6%89%8B%E6%9C%BA%E5%B0%8F%E7%88%B1-%E5%B0%8F%E7%88%B1%E8%AE%AD%E7%BB%83-%E4%B8%AA%E4%BA%BA%E8%AE%AD%E7%BB%83.jpg" alt="小爱训练个人训练" width="220" /></td>
+    <td width="220" valign="top"><img src="./images/%E6%89%8B%E6%9C%BA%E5%B0%8F%E7%88%B1-%E5%B0%8F%E7%88%B1%E8%AE%AD%E7%BB%83-%E9%85%8D%E7%BD%AE%E6%8C%87%E4%BB%A4.jpg" alt="小爱训练配置指令" width="220" /></td>
+  </tr>
+  <tr>
+    <td width="220" valign="top">打开小爱同学，进入“小爱训练”</td>
+    <td width="220" valign="top">进入“个人训练”，例如添加“关闭电脑”“重启电脑”“注销当前用户”这类语音指令</td>
+    <td width="220" valign="top">添加语音指令，并选择刚才同步到米家的巴法云设备，例如：关闭电脑 -> `off`，重启电脑 -> `on`，注销当前用户 -> `pause`</td>
+  </tr>
+</table>
+
+<p>小米音箱 App 进入：</p>
+<table style="table-layout: fixed;">
+  <tr>
+    <td width="220" valign="top"><img src="./images/%E5%B0%8F%E7%B1%B3%E9%9F%B3%E7%AE%B1APP-%E5%B0%8F%E7%88%B1%E8%AE%AD%E7%BB%83-%E5%85%A5%E5%8F%A3-%E6%AD%A5%E9%AA%A42.jpg" alt="小米音箱 App 全部功能入口" width="220" /></td>
+    <td width="220" valign="top"><img src="./images/%E5%B0%8F%E7%B1%B3%E9%9F%B3%E7%AE%B1APP-%E5%B0%8F%E7%88%B1%E8%AE%AD%E7%BB%83-%E5%85%A5%E5%8F%A3-%E6%AD%A5%E9%AA%A41.jpg" alt="小米音箱 App 小爱训练入口" width="220" /></td>
+  </tr>
+  <tr>
+    <td width="220" valign="top">首页进入“全部功能”</td>
+    <td width="220" valign="top">在“我的设备”中进入“小爱训练”</td>
+  </tr>
+</table>
+
+<h2>开机说明</h2>
+<p>如果要实现“打开电脑”，可以把电脑电源接到小米智能插座上，并在主板 BIOS 中开启来电自启。</p>
+<p>然后在小爱训练里，把“打开电脑”这条指令绑定为打开插座即可。</p>
+<table style="table-layout: fixed;">
+  <tr>
+    <td width="220" valign="top"><img src="./images/%E7%B1%B3%E5%AE%B6%E6%99%BA%E8%83%BD%E6%8F%92%E5%BA%A73.jpg" alt="米家智能插座" width="220" /></td>
+  </tr>
+  <tr>
+    <td width="220" valign="top">小米智能插座示例</td>
+  </tr>
+</table>
+
+<hr>
+</article>
+    </main>
+  </body>
+</html>

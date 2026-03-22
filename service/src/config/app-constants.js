@@ -5,7 +5,7 @@ const SERVICE_INSTALL_DIR = path.join(
   process.env.ProgramData || "C:\\ProgramData",
   "XiaoAiControlPC"
 );
-const BUILD_DIR = path.resolve(__dirname, "..", "..", "build");
+const BUILD_DIR = path.resolve(__dirname, "..", "..", "..", "build");
 const SERVICE_BUNDLE_FILENAME = "service.js";
 
 module.exports = {

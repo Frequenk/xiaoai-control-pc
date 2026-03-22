@@ -1,0 +1,64 @@
+name: publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - release
+
+jobs:
+  publish-tauri:
+    permissions:
+      contents: write
+
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "./app/src-tauri -> target"
+
+      - name: install frontend dependencies
+        run: npm ci
+
+      - name: read version
+        id: version
+        shell: powershell
+        run: |
+          $version = (Get-Content package.json | ConvertFrom-Json).version
+          "version=$version" >> $env:GITHUB_OUTPUT
+          "tag=app-v$version" >> $env:GITHUB_OUTPUT
+          "zip_name=xiaoai-control-pc-v$version-windows-x64-portable.zip" >> $env:GITHUB_OUTPUT
+
+      - name: build portable package
+        run: npm run tauri:portable
+
+      - name: rename portable zip
+        shell: powershell
+        run: |
+          Move-Item `
+            -Path "build\portable\xiaoai-control-pc-portable.zip" `
+            -Destination "build\portable\${{ steps.version.outputs.zip_name }}" `
+            -Force
+
+      - name: publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: XiaoAi Control PC v${{ steps.version.outputs.version }}
+          body: 下载绿色版压缩包，解压后直接运行。
+          draft: false
+          prerelease: false
+          files: build/portable/${{ steps.version.outputs.zip_name }}
