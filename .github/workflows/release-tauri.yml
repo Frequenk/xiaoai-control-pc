@@ -4,12 +4,14 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - release
+      - main
+    tags:
+      - "v*.*.*"
 
 jobs:
-  publish-tauri:
+  build-portable:
     permissions:
-      contents: write
+      contents: read
 
     runs-on: windows-latest
 
@@ -39,7 +41,6 @@ jobs:
         run: |
           $version = (Get-Content package.json | ConvertFrom-Json).version
           "version=$version" >> $env:GITHUB_OUTPUT
-          "tag=app-v$version" >> $env:GITHUB_OUTPUT
           "zip_name=xiaoai-control-pc-v$version-windows-x64-portable.zip" >> $env:GITHUB_OUTPUT
 
       - name: build portable package
@@ -53,12 +54,32 @@ jobs:
             -Destination "build\portable\${{ steps.version.outputs.zip_name }}" `
             -Force
 
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.version.outputs.zip_name }}
+          path: build/portable/${{ steps.version.outputs.zip_name }}
+
+  publish-release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build-portable
+    permissions:
+      contents: write
+
+    runs-on: windows-latest
+
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+
       - name: publish release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.version.outputs.tag }}
-          name: XiaoAi Control PC v${{ steps.version.outputs.version }}
+          tag_name: ${{ github.ref_name }}
+          name: XiaoAi Control PC ${{ github.ref_name }}
           body: 下载绿色版压缩包，解压后直接运行。
           draft: false
           prerelease: false
-          files: build/portable/${{ steps.version.outputs.zip_name }}
+          files: release-assets/**/*.zip

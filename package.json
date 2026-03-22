@@ -1,6 +1,6 @@
 {
   "name": "xiaoai-control-pc",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Use XiaoAi + Mi Home + Bemfa MQTT to control a Windows PC.",
   "main": "service/src/index.js",
   "scripts": {
