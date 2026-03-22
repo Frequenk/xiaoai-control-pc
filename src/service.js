@@ -1,4 +1,5 @@
 const actionMap = require("./config/action-map");
+const { SERVICE_NAME } = require("./config/app-constants");
 const { loadEnvConfig } = require("./config/env");
 const { createActionDispatcher } = require("./core/action-dispatcher");
 const { createMqttClient } = require("./core/mqtt-client");
@@ -8,7 +9,7 @@ function startService() {
   const dispatchMessage = createActionDispatcher(actionMap);
   const client = createMqttClient(config.mqtt, dispatchMessage);
 
-  console.log(`[service] ${config.serviceName} 已启动`);
+  console.log(`[service] ${SERVICE_NAME} 已启动`);
 
   const shutdown = () => {
     console.log("[service] 正在关闭 MQTT 连接");

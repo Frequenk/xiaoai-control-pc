@@ -1,4 +1,5 @@
 node_modules/
+build/
 daemon/
 .env
 npm-debug.log*

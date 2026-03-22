@@ -4,6 +4,7 @@
   "description": "Use XiaoAi + Mi Home + Bemfa MQTT to control a Windows PC.",
   "main": "src/index.js",
   "scripts": {
+    "build-service": "node scripts/build-service.js",
     "start": "node src/index.js",
     "install-service": "node scripts/install-service.js",
     "uninstall-service": "node scripts/uninstall-service.js",
@@ -21,5 +22,8 @@
     "dotenv": "^17.2.3",
     "mqtt": "^5.14.1",
     "node-windows": "^1.0.0-beta.8"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.3"
   }
 }

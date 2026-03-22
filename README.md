@@ -158,10 +158,10 @@ npm run uninstall-service
 
 说明：
 
-- 安装成 Windows 服务后，不要删除当前项目目录，因为服务仍然依赖当前目录中的脚本、依赖和配置文件
-- 不要修改当前项目目录路径，因为服务注册时使用的是当前目录下的实际文件路径
-- 不要删除 `node_modules`，因为服务运行时仍然需要这些依赖
-- `.env` 需要保留，因为服务启动时仍然要读取其中的配置
+- 服务名称固定为 `XiaoAi Control PC`
+- 安装时会先打包服务运行文件，再发布到 `%ProgramData%\XiaoAiControlPC`
+- `.env` 会在安装时复制到 `%ProgramData%\XiaoAiControlPC`
+- 安装完成后，服务会从 `%ProgramData%\XiaoAiControlPC` 运行
 
 ## 默认动作和自定义位置
 

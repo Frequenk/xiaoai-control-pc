@@ -1,11 +1,10 @@
 const path = require("path");
 const dotenv = require("dotenv");
-const { resolveServiceName } = require("./service-name");
-
-const defaultEnvPath = path.resolve(__dirname, "..", "..", ".env");
 
 dotenv.config({
-  path: process.env.XIAOAI_CONTROL_PC_ENV_FILE || defaultEnvPath,
+  path:
+    process.env.XIAOAI_CONTROL_PC_ENV_FILE ||
+    path.resolve(process.cwd(), ".env"),
   quiet: true,
 });
 
@@ -57,7 +56,6 @@ function loadEnvConfig() {
   }
 
   return {
-    serviceName: resolveServiceName(process.env.SERVICE_NAME),
     mqtt: {
       host: (process.env.BEMFA_MQTT_HOST || "bemfa.com").trim(),
       port: readNumber("BEMFA_MQTT_PORT", 9503),
