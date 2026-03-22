@@ -1,6 +1,6 @@
 [package]
 name = "xiaoai-control-pc-ui"
-version = "0.1.0"
+version = "1.0.0"
 description = "Tauri desktop manager for XiaoAi Control PC"
 authors = ["fyk"]
 edition = "2021"

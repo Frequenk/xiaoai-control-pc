@@ -37,9 +37,17 @@ jobs:
         id: version
         shell: powershell
         run: |
-          $version = (Get-Content package.json | ConvertFrom-Json).version
+          if ("${{ github.ref_type }}" -eq "tag") {
+            $version = "${{ github.ref_name }}".TrimStart("v")
+          } else {
+            $version = (Get-Content package.json | ConvertFrom-Json).version
+          }
           "version=$version" >> $env:GITHUB_OUTPUT
           "zip_name=xiaoai-control-pc-v$version-windows-x64-portable.zip" >> $env:GITHUB_OUTPUT
+
+      - name: sync version
+        shell: powershell
+        run: node app/scripts/sync-version.js "${{ steps.version.outputs.version }}"
 
       - name: build portable package
         run: npm run tauri:portable

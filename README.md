@@ -2,6 +2,8 @@
 
 用小爱同学控制电脑关机，以及扩展更多自定义操作。
 
+<img src="./docs/images/桌面应用截图.png" alt="XiaoAi Control PC 桌面客户端截图" width="980" />
+
 ## 实现方式
 
 ### 关机 / 其他操作
@@ -51,12 +53,12 @@ https://cloud.bemfa.com/docs/src/speaker_mi.html?utm_source=chatgpt.com
 
 <table style="table-layout: fixed;">
   <tr>
-    <td width="220" valign="top"><img src="./docs/images/米家APP-我的.jpg" alt="米家 App 我的页面" width="220" /></td>
-    <td width="220" valign="top"><img src="./docs/images/米家APP-第三方平台-巴法云.jpg" alt="米家 App 第三方平台" width="220" /></td>
+    <td width="240" valign="top"><img src="./docs/images/米家APP-我的.jpg" alt="米家 App 我的页面" width="240" /></td>
+    <td width="240" valign="top"><img src="./docs/images/米家APP-第三方平台-巴法云.jpg" alt="米家 App 第三方平台" width="240" /></td>
   </tr>
   <tr>
-    <td width="220" valign="top">打开米家 App，进入“我的”页面</td>
-    <td width="220" valign="top">进入“连接第三方平台”，搜索并绑定巴法云，完成后同步刚创建的 MQTT 设备</td>
+    <td width="240" valign="top">打开米家 App，进入“我的”页面</td>
+    <td width="240" valign="top">进入“连接第三方平台”，搜索并绑定巴法云，完成后同步刚创建的 MQTT 设备</td>
   </tr>
 </table>
 
@@ -68,14 +70,14 @@ https://cloud.bemfa.com/docs/src/speaker_mi.html?utm_source=chatgpt.com
 
 <table style="table-layout: fixed;">
   <tr>
-    <td width="220" valign="top"><img src="./docs/images/手机小爱-小爱训练-入口.jpg" alt="小爱训练入口" width="220" /></td>
-    <td width="220" valign="top"><img src="./docs/images/手机小爱-小爱训练-个人训练.jpg" alt="小爱训练个人训练" width="220" /></td>
-    <td width="220" valign="top"><img src="./docs/images/手机小爱-小爱训练-配置指令.jpg" alt="小爱训练配置指令" width="220" /></td>
+    <td width="240" valign="top"><img src="./docs/images/手机小爱-小爱训练-入口.jpg" alt="小爱训练入口" width="240" /></td>
+    <td width="240" valign="top"><img src="./docs/images/手机小爱-小爱训练-个人训练.jpg" alt="小爱训练个人训练" width="240" /></td>
+    <td width="240" valign="top"><img src="./docs/images/手机小爱-小爱训练-配置指令.jpg" alt="小爱训练配置指令" width="240" /></td>
   </tr>
   <tr>
-    <td width="220" valign="top">打开小爱同学，进入“小爱训练”</td>
-    <td width="220" valign="top">进入“个人训练”，例如添加“关闭电脑”“重启电脑”“注销当前用户”这类语音指令</td>
-    <td width="220" valign="top">添加语音指令，并选择刚才同步到米家的巴法云设备，例如：关闭电脑 -> `off`，重启电脑 -> `on`，注销当前用户 -> `pause`</td>
+    <td width="240" valign="top">打开小爱同学，进入“小爱训练”</td>
+    <td width="240" valign="top">进入“个人训练”，例如添加“关闭电脑”“重启电脑”“注销当前用户”这类语音指令</td>
+    <td width="240" valign="top">添加语音指令，并选择刚才同步到米家的巴法云设备，例如：关闭电脑 -> `off`，重启电脑 -> `on`，注销当前用户 -> `pause`</td>
   </tr>
 </table>
 
@@ -83,12 +85,12 @@ https://cloud.bemfa.com/docs/src/speaker_mi.html?utm_source=chatgpt.com
 
 <table style="table-layout: fixed;">
   <tr>
-    <td width="220" valign="top"><img src="./docs/images/小米音箱APP-小爱训练-入口-步骤2.jpg" alt="小米音箱 App 全部功能入口" width="220" /></td>
-    <td width="220" valign="top"><img src="./docs/images/小米音箱APP-小爱训练-入口-步骤1.jpg" alt="小米音箱 App 小爱训练入口" width="220" /></td>
+    <td width="240" valign="top"><img src="./docs/images/小米音箱APP-小爱训练-入口-步骤2.jpg" alt="小米音箱 App 全部功能入口" width="240" /></td>
+    <td width="240" valign="top"><img src="./docs/images/小米音箱APP-小爱训练-入口-步骤1.jpg" alt="小米音箱 App 小爱训练入口" width="240" /></td>
   </tr>
   <tr>
-    <td width="220" valign="top">首页进入“全部功能”</td>
-    <td width="220" valign="top">在“我的设备”中进入“小爱训练”</td>
+    <td width="240" valign="top">首页进入“全部功能”</td>
+    <td width="240" valign="top">在“我的设备”中进入“小爱训练”</td>
   </tr>
 </table>
 
@@ -100,10 +102,10 @@ https://cloud.bemfa.com/docs/src/speaker_mi.html?utm_source=chatgpt.com
 
 <table style="table-layout: fixed;">
   <tr>
-    <td width="220" valign="top"><img src="./docs/images/米家智能插座3.jpg" alt="米家智能插座" width="220" /></td>
+    <td width="240" valign="top"><img src="./docs/images/米家智能插座3.jpg" alt="米家智能插座" width="240" /></td>
   </tr>
   <tr>
-    <td width="220" valign="top">小米智能插座示例</td>
+    <td width="240" valign="top">小米智能插座示例</td>
   </tr>
 </table>
 
