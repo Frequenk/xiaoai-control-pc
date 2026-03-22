@@ -4,6 +4,7 @@ version = "1.0.0"
 description = "Tauri desktop manager for XiaoAi Control PC"
 authors = ["fyk"]
 edition = "2021"
+license = "GPL-3.0-or-later"
 
 [lib]
 name = "xiaoai_control_pc_ui_lib"

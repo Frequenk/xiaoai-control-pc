@@ -236,3 +236,9 @@ actionMap.pause = {
 - `command`：电脑实际执行的命令
 
 如果后面你想加更多指令，就直接改 `service/src/config/action-map.js`。默认没有开放的 key，需要自己拉代码后修改。
+
+## 开源许可证
+
+本项目采用 GNU General Public License v3.0 或更高版本（`GPL-3.0-or-later`）发布。
+
+许可证全文见 [LICENSE](./LICENSE)。
